@@ -1,0 +1,6 @@
+.sidebar, .main{
+  float: left;
+}
+.gap-horizontal {
+  height: 20px;
+}

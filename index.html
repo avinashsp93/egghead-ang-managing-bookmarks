@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="egglyApp">
   <head>
     <meta charset="utf-8">
     <title>Bookmarks Management | Egghead</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
-  <body ng-controller="">
-    Fine
+  <body ng-controller="MainCtrl">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <a href="#" ng-click="setCurrentCategory(null)"><img src="img/logo.png" alt="Image not loaded" width="120px"/></a>
+          <div class="gap-horizontal"></div>
+          <ul class="nav nav-sidebar">
+            <li ng-repeat="category in categories" ng-class="{'active':isCurrentCategory(category)}">
+              <a href="#" ng-click="setCurrentCategory(category)">{{category.name}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-md-10 main">
+          <div ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
+            <button type="button" class="close">&times;</button>
+            <button type="button" ng-click="startEditing()" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+            <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
+          </div>
+          <hr/>
+          <!-- CREATING -->
+          <div ng-if="shouldShowCreating()">
+            <button type="button" class="btn btn-link" ng-click="startCreating()">
+              <span class="glyphicon glyphicon-plus"></span>
+              Create Bookmark
+            </button>
+            <div ng-if="isCreating">
+              Create a Bookmark!!
+              <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelCreating()">Cancel</button>
+            </div>
+          </div>
+          <!-- EDITING -->
+          <div ng-if="shouldShowEditing()">
+            Edit a Bookmark!!
+            <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelEditing()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script src="lib/jquery.js"></script>
   <script src="lib/bootstrap.js"></script>
+  <script src="lib/lodash.js"></script>
   <script src="lib/angular.js"></script>
-  <script src="src/app.js"></script>
+  <script src="src/eggly.js"></script>
 </html>
