@@ -43,6 +43,8 @@ angular.module('egglyApp', [])
     function startCreating() {
       $scope.isCreating = true;
       $scope.isEditing = false;
+
+      resetCreateForm();
     }
     $scope.startCreating = startCreating;
 
@@ -71,4 +73,24 @@ angular.module('egglyApp', [])
       return $scope.isEditing && !$scope.isCreating;
     }
     $scope.shouldShowEditing = shouldShowEditing;
+
+
+    // CRUD
+
+    function resetCreateForm() {
+      $scope.newBookmark = {
+        title: '',
+        url: '',
+        category: $scope.currentCategory.name
+      }
+    }
+    $scope.resetCreateForm = resetCreateForm;
+
+    function createBookmark(bookmark) {
+      bookmark.id = $scope.bookmarks.length;
+      $scope.bookmarks.push(bookmark);
+      console.log($scope.bookmarks);
+      resetCreateForm();
+    }
+    $scope.createBookmark = createBookmark;
   });
