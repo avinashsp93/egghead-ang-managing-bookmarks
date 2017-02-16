@@ -81,7 +81,7 @@ angular.module('egglyApp', [])
       $scope.newBookmark = {
         title: '',
         url: '',
-        category: $scope.currentCategory
+        category: $scope.currentCategory.name
       }
     }
     $scope.resetCreateForm = resetCreateForm;
@@ -89,7 +89,7 @@ angular.module('egglyApp', [])
     function createBookmark(bookmark) {
       bookmark.id = $scope.bookmarks.length;
       $scope.bookmarks.push(bookmark);
-
+      console.log($scope.bookmarks);
       resetCreateForm();
     }
     $scope.createBookmark = createBookmark;
